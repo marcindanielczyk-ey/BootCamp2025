@@ -1,0 +1,10 @@
+Task 1
+▪ Install Git locally (git-scm.com)
+▪ Create github.com account, if not having any
+▪ Create private repo: BootCamp2025 (with README, no licence options)
+then add 3 simple text files with details of these tasks
+▪ Clone repo locally and create development branch (source: main); commit & push changes to repo
+▪ From now on, You work on develpoment branch; Remember the cycle for review proces:
+Push changes to repo, create Pull Requests to main branch, add reviewers:
+▪ (Tomasz.Tchorzewski@gds.ey.com) tomtchorzewski-ey
+▪ (Mieszko.Walerych@gds.ey.com) mieszko-ey
