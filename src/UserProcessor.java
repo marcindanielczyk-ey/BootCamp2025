@@ -1,12 +1,17 @@
 import java.util.*;
 import java.io.*;
 
-public class UserProcessor {
+interface UserStorageInterface {
+    void save(User user);
+}
 
-    public static void main(String[] args) {
-        UserProcessor processor = new UserProcessor();
-        processor.processUser();
-    }
+interface NotificationInterface {
+    void notify(User user);
+}
+
+public class UserProcessor {
+    private List<UserStorageInterface> storages = Arrays.asList(new FileUserStorage(), new MemoryUserStorage());
+    private List<NotificationInterface> notifiers = Arrays.asList(new EmailNotification(), new SmsNotification());
 
     public void processUser() {
         UserInputHandler inputHandler = new UserInputHandler();
@@ -20,15 +25,20 @@ public class UserProcessor {
         String userId = UUID.randomUUID().toString();
         User user = new User(userId, data.name, data.email, data.phone, data.age);
 
-        UserStorage storage = new UserStorage();
-        storage.saveToFile(user);
-        storage.saveToMemory(user);
+        for (UserStorageInterface storage : storages) {
+            storage.save(user);
+        }
 
-        NotificationService notifier = new NotificationService();
-        notifier.sendEmail(user);
-        notifier.sendSms(user);
+        for (NotificationInterface notifier : notifiers) {
+            notifier.notify(user);
+        }
 
         System.out.println("User processed successfully!");
+    }
+
+    public static void main(String[] args) {
+        UserProcessor processor = new UserProcessor();
+        processor.processUser();
     }
 }
 
@@ -83,10 +93,9 @@ class UserValidator {
     }
 }
 
-class UserStorage {
-    private static final Map<String, User> inMemoryUserDatabase = new HashMap<>();
-
-    public void saveToFile(User user) {
+class FileUserStorage implements UserStorageInterface {
+    @Override
+    public void save(User user) {
         try {
             FileWriter writer = new FileWriter("user.log", true);
             writer.write("User created: " + user.toString() + "\n");
@@ -95,18 +104,27 @@ class UserStorage {
             ex.printStackTrace();
         }
     }
+}
 
-    public void saveToMemory(User user) {
+class MemoryUserStorage implements UserStorageInterface {
+    private static final Map<String, User> inMemoryUserDatabase = new HashMap<>();
+
+    @Override
+    public void save(User user) {
         inMemoryUserDatabase.put(user.getId(), user);
     }
 }
 
-class NotificationService {
-    public void sendEmail(User user) {
+class EmailNotification implements NotificationInterface {
+    @Override
+    public void notify(User user) {
         System.out.println("sending email to client " + user.toString());
     }
+}
 
-    public void sendSms(User user) {
+class SmsNotification implements NotificationInterface {
+    @Override
+    public void notify(User user) {
         System.out.println("sending sms to client " + user.toString());
     }
 }
