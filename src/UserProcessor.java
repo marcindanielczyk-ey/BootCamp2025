@@ -18,10 +18,17 @@ interface UserValidatorInterface {
 }
 
 public class UserProcessor {
-    private List<UserStorageInterface> storages = Arrays.asList(new FileUserStorage(), new MemoryUserStorage());
-    private List<NotificationInterface> notifiers = Arrays.asList(new EmailNotification(), new SmsNotification());
-    private UserInputInterface inputHandler = new UserInputHandler();
-    private UserValidatorInterface validator = new UserValidator();
+    private List<UserStorageInterface> storages;
+    private List<NotificationInterface> notifiers;
+    private UserInputInterface inputHandler;
+    private UserValidatorInterface validator;
+
+    public UserProcessor(List<UserStorageInterface> storages, List<NotificationInterface> notifiers, UserInputInterface inputHandler, UserValidatorInterface validator) {
+        this.storages = storages;
+        this.notifiers = notifiers;
+        this.inputHandler = inputHandler;
+        this.validator = validator;
+    }
 
     public void processUser() {
         UserData data = inputHandler.getUserData();
@@ -45,7 +52,12 @@ public class UserProcessor {
     }
 
     public static void main(String[] args) {
-        UserProcessor processor = new UserProcessor();
+        UserProcessor processor = new UserProcessor(
+                Arrays.asList(new FileUserStorage(), new MemoryUserStorage()),
+                Arrays.asList(new EmailNotification(), new SmsNotification()),
+                new UserInputHandler(),
+                new UserValidator()
+        );
         processor.processUser();
     }
 }
