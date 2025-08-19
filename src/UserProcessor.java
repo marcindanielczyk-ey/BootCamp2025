@@ -9,15 +9,23 @@ interface NotificationInterface {
     void notify(User user);
 }
 
+interface UserInputInterface {
+    UserData getUserData();
+}
+
+interface UserValidatorInterface {
+    boolean validate(UserData data);
+}
+
 public class UserProcessor {
     private List<UserStorageInterface> storages = Arrays.asList(new FileUserStorage(), new MemoryUserStorage());
     private List<NotificationInterface> notifiers = Arrays.asList(new EmailNotification(), new SmsNotification());
+    private UserInputInterface inputHandler = new UserInputHandler();
+    private UserValidatorInterface validator = new UserValidator();
 
     public void processUser() {
-        UserInputHandler inputHandler = new UserInputHandler();
         UserData data = inputHandler.getUserData();
 
-        UserValidator validator = new UserValidator();
         if (!validator.validate(data)) {
             return;
         }
@@ -42,7 +50,8 @@ public class UserProcessor {
     }
 }
 
-class UserInputHandler {
+class UserInputHandler implements UserInputInterface {
+    @Override
     public UserData getUserData() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter user name:");
@@ -71,7 +80,8 @@ class UserData {
     }
 }
 
-class UserValidator {
+class UserValidator implements UserValidatorInterface {
+    @Override
     public boolean validate(UserData data) {
         if (data.name == null || data.name.isEmpty() || data.name.length() > 20 || !data.name.matches("[a-zA-Z]+")) {
             System.out.println("Invalid name");
