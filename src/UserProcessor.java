@@ -144,7 +144,7 @@ class User {
         this.age = age;
     }
 
-    public String getPhone() {
+    public final String getPhone() {
         return phone;
     }
 
@@ -152,7 +152,7 @@ class User {
         this.phone = phone;
     }
 
-    public String getId() {
+    public final  String getId() {
         return id;
     }
 
@@ -160,7 +160,7 @@ class User {
         this.id = id;
     }
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
@@ -168,7 +168,7 @@ class User {
         this.name = name;
     }
 
-    public String getEmail() {
+    public final String getEmail() {
         return email;
     }
 
@@ -176,7 +176,7 @@ class User {
         this.email = email;
     }
 
-    public int getAge() {
+    public final int getAge() {
         return age;
     }
 
