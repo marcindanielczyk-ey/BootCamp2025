@@ -4,5 +4,6 @@ public class GitVersioningClass {
         System.out.println("Line for git commit -amend");
 
         System.out.println("First commit FeatureBranchB");
+        System.out.println("Second commit FeatureBranchB");
     }
 }
