@@ -1,1 +1,5 @@
 User created: User{id='09f39eda-802b-4887-890c-8fc39495867c', name='Marcin', email='marcin@gmail.com', age=29}
+User created: User{id='3278077b-b116-4d36-89d0-665c9896ed7a', name='Marcin', email='marcin@op.pl', age=19}
+User created: User{id='db520439-4574-4b71-91f7-c953af02db3c', name='marcin', email='d@d', age=321}
+User created: User{id='cf1737c9-7d2b-4a97-9aaa-4481c9044432', name='Marcin', email='Danielcz@', age=321}
+User created: User{id='c56c98ba-f8e2-4a6f-a020-39120a1acbdb', name='Marcin', email='ma@ma', age=321}
