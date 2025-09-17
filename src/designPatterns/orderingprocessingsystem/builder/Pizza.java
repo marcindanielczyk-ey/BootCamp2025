@@ -1,18 +1,14 @@
 package designPatterns.orderingprocessingsystem.builder;
 
-import designPatterns.orderingprocessingsystem.Meal;
-
+import designPatterns.orderingprocessingsystem.BaseMeal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pizza implements Meal {
-    private String size;
-    private List<String> ingredients;
+public class Pizza extends BaseMeal {
     private boolean extraCheese;
 
     private Pizza(PizzaBuilder builder) {
-        this.size = builder.size;
-        this.ingredients = builder.ingredients;
+        super(builder.size, builder.ingredients);
         this.extraCheese = builder.extraCheese;
     }
 
@@ -32,9 +28,23 @@ public class Pizza implements Meal {
         private List<String> ingredients = new ArrayList<>();
         private boolean extraCheese;
 
-        public PizzaBuilder size(String size) { this.size = size; return this; }
-        public PizzaBuilder ingredients(List<String> ingredients) { this.ingredients = ingredients; return this; }
-        public PizzaBuilder extraCheese(boolean extraCheese) { this.extraCheese = extraCheese; return this; }
-        public Pizza build() { return new Pizza(this); }
+        public PizzaBuilder size(String size) {
+            this.size = size;
+            return this;
+        }
+
+        public PizzaBuilder ingredients(List<String> ingredients) {
+            this.ingredients = new ArrayList<>(ingredients);
+            return this;
+        }
+
+        public PizzaBuilder extraCheese(boolean extraCheese) {
+            this.extraCheese = extraCheese;
+            return this;
+        }
+
+        public Pizza build() {
+            return new Pizza(this);
+        }
     }
 }
